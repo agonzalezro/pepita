@@ -13,9 +13,6 @@ if (Meteor.isClient) {
     if (user) {
       var pageId = _.last([user.defaultPageId].concat(user.history));
       var keys = [];
-      for (i=0;i<=10;i++) {
-
-      }
       return Keys.find({
         pageId: pageId
       }, {
@@ -42,6 +39,57 @@ if (Meteor.isClient) {
         pageId: user.defaultPageId,
         keyNumber: 2,
         command: "javascript:Template.pepitaEventsIndex();",
+        text: "Go back"
+      })
+    });
+  }
+
+  Template.pepitaEventsGP = function () {
+    var user = Users.findOne({
+      username: "pepita"
+    });
+
+    Meteor.call("removeKeys", function() {
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 1,
+        command: "javascript:Template.pepitaEventsGPBook();",
+        text: "Book"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 2,
+        text: "Check results"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 3,
+        command: "javascript:Template.pepitaEventsIndex();",
+        text: "Go back"
+      })
+    });
+  }
+
+  Template.pepitaEventsGPBook = function () {
+    var user = Users.findOne({
+      username: "pepita"
+    });
+
+    Meteor.call("removeKeys", function() {
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 1,
+        text: "For visit"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 2,
+        text: "For test"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 3,
+        command: "javascript:Template.pepitaEventsGP();",
         text: "Go back"
       })
     });
@@ -82,7 +130,7 @@ var createMockupData = function (defaultPageId) {
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,
-          command: "Call Carlos",
+          command: "tel://00447528423711",
           image: "images/carlosKey.jpg"
         })
         break;
@@ -101,6 +149,15 @@ var createMockupData = function (defaultPageId) {
           command: "javascript:Template.pepitaEventsWeather();",
           image: "images/weather.png"
         })
+        break;
+      case 7:
+        Keys.insert({
+          pageId: defaultPageId,
+          keyNumber: index,
+          command: "javascript:Template.pepitaEventsGP();",
+          text: "GP"
+        })
+        break;
       /*default:
         Keys.insert({
           pageId: defaultPageId,
