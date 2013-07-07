@@ -21,6 +21,10 @@ if (Meteor.isClient) {
     }
   }
 
+  Template.keyboard.events({
+    'keypress input': function(e) { console.log('key', e); }
+  });
+
   /* Navigation functions
    * The way of saving it doesn't seem so nice, but ehy! It's a hackathon :D
    */
@@ -32,15 +36,23 @@ if (Meteor.isClient) {
     Meteor.call("removeKeys", function() {
       Keys.insert({
         pageId: user.defaultPageId,
-        keyNumber: 1,
-        text: "24° now"
+        keyNumber: 0,
+        command: "javascript:Template.pepitaEventsIndex();",
+        text: "Go back"
       }),
       Keys.insert({
         pageId: user.defaultPageId,
-        keyNumber: 2,
-        command: "javascript:Template.pepitaEventsIndex();",
-        text: "Go back"
-      })
+        keyNumber: 1,
+        text: "24° now"
+      });
+
+      // Ugliest thing ever!
+      for (var index=2; index<=10; index++)
+        Keys.insert({
+          pageId: user.defaultPageId,
+          keyNumber: index,
+        })
+
     });
   }
 
@@ -52,6 +64,12 @@ if (Meteor.isClient) {
     Meteor.call("removeKeys", function() {
       Keys.insert({
         pageId: user.defaultPageId,
+        keyNumber: 0,
+        command: "javascript:Template.pepitaEventsIndex();",
+        text: "Go back"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
         keyNumber: 1,
         command: "javascript:Template.pepitaEventsGPBook();",
         text: "Book"
@@ -60,13 +78,15 @@ if (Meteor.isClient) {
         pageId: user.defaultPageId,
         keyNumber: 2,
         text: "Check results"
-      }),
-      Keys.insert({
-        pageId: user.defaultPageId,
-        keyNumber: 3,
-        command: "javascript:Template.pepitaEventsIndex();",
-        text: "Go back"
-      })
+      });
+
+      // Ugliest thing ever!
+      for (var index=3; index<=10; index++)
+        Keys.insert({
+          pageId: user.defaultPageId,
+          keyNumber: index,
+        })
+
     });
   }
 
@@ -78,22 +98,76 @@ if (Meteor.isClient) {
     Meteor.call("removeKeys", function() {
       Keys.insert({
         pageId: user.defaultPageId,
+        keyNumber: 0,
+        command: "javascript:Template.pepitaEventsGP();",
+        text: "Go back"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
         keyNumber: 1,
+        command: "javascript:Template.pepitaEventGPBookVisit();",
         text: "For visit"
       }),
       Keys.insert({
         pageId: user.defaultPageId,
         keyNumber: 2,
+        command: "javascript:Template.pepitaEventGPBookTest();",
         text: "For test"
+      });
+
+      // Ugliest thing ever!
+      for (var index=3; index<=10; index++)
+        Keys.insert({
+          pageId: user.defaultPageId,
+          keyNumber: index,
+        })
+    });
+  }
+
+  Template.pepitaEventGPBookVisit = function () {
+    var user = Users.findOne({
+      username: "pepita"
+    });
+
+    Meteor.call("removeKeys", function() {
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 0,
+        command: "javascript:Template.pepitaEventsGPBook();",
+        text: "Go back"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 1,
+        text: "Today"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 2,
+        text: "Tomorrow"
       }),
       Keys.insert({
         pageId: user.defaultPageId,
         keyNumber: 3,
-        command: "javascript:Template.pepitaEventsGP();",
-        text: "Go back"
-      })
+        text: "Next week"
+      }),
+      Keys.insert({
+        pageId: user.defaultPageId,
+        keyNumber: 4,
+        text: "Next month"
+      });
+
+      // Ugliest thing ever!
+      for (var index=5; index<=10; index++)
+        Keys.insert({
+          pageId: user.defaultPageId,
+          keyNumber: index,
+        })
     });
   }
+
+  // Just show the icons
+  Template.pepitaEventsGPBookTest = Template.pepitaEventGPBookVisit;
 
   Template.pepitaEventsIndex = function() {
     var user = Users.findOne({
@@ -155,16 +229,15 @@ var createMockupData = function (defaultPageId) {
           pageId: defaultPageId,
           keyNumber: index,
           command: "javascript:Template.pepitaEventsGP();",
-          text: "GP"
+          image: "images/stethoscope.jpg",
         })
         break;
-      /*default:
+      default:
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,
-          image: images
         })
-        break;*/
+        break;
     }
   }
 }
