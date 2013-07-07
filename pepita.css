@@ -1,1 +1,52 @@
-/* CSS declarations go here */
+body {
+  background-color: #77bb41;
+  padding: 0;
+  margin: 0;
+}
+
+ul, ul li {
+  margin: 0;
+}
+
+ul {
+  margin-left: -50px;
+}
+
+li {
+  list-style-type: none;
+  display: block;
+  height: 220px;
+  width: 220px;
+  float: left;
+  background-color: #e73b7b;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+
+li img {
+  margin-top: -92px;
+}
+
+.number {
+  font-size: 80px;
+  font-weight: bold;
+  position: relative;
+  top: 120px;
+  left: 20px;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+#ad {
+  position: absolute;
+  margin: auto;
+  bottom: 0px;
+}
+
+.text {
+  font-size: 40px;
+}

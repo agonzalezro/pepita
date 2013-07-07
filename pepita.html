@@ -1,21 +1,26 @@
 <head>
-  <title>Meteor</title>
+  <title>P.E.P.I.T.A.</title>
 </head>
 
 <body>
   {{> keyboard}}
+  <img id="ad" src="images/samsung_ad.png">
 </body>
 
 <template name="keyboard">
-	<table width="768" height="1024" cellpadding="0" cellspacing="0" border="1">
-		<tr>
-			<td valign="top">
-				{{#each keys}}
-					<p>
-					Key {{keyNumber}}:
-					<a href="{{command}}"><img src="{{image}}"></a>
-				{{/each}}
-			</td>
-		</tr>
-	</table>
+  <ul>
+    {{# each keys }}
+    <li>
+      <a href="{{ command }}">  <!-- If not link deactivate -->
+        <span class="number {{ keyNumber }}">{{ keyNumber }}</span>
+        {{# if image }}
+          <img src="{{ image }}">
+        {{/if}}
+        {{# if text }}
+          <span class="text">{{ text }}</span>
+        {{/if}}
+      </a>
+    </li>
+    {{/each}}
+  </ul>
 </template>
