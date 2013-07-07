@@ -13,17 +13,68 @@ if (Meteor.isClient) {
     if (user) {
       var pageId = _.last([user.defaultPageId].concat(user.history));
       var keys = [];
-      return Keys.find({
-        pageId: pageId
-      }, {
-        sort: {keyNumber: 1}
+      // If I could I would fire myself after this
+      keys[0] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 7
       });
+      keys[1] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 8
+      });
+      keys[2] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 9
+      });
+      keys[3] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 4
+      });
+      keys[4] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 5
+      });
+      keys[5] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 6
+      });
+      keys[6] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 1
+      });
+      keys[7] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 2
+      });
+      keys[8] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 3
+      });
+      keys[9] = Keys.findOne({
+        pageId: pageId,
+        keyNumber: 0
+      });
+      return keys;
     }
   }
 
-  Template.keyboard.events({
-    'keypress input': function(e) { console.log('key', e); }
-  });
+  Template.keyboard.shouldBreak = function (number) {
+    if (number === 4 || number === 1 || number == 0)
+      return true
+    return false
+  }
+
+  Template.keyboard.rendered = function(){
+    $(window).on('keydown', function(e) {
+      //Being showed 2 times :(
+      var number = e.which - 96;  // numeric keyboard
+      var element = $("#" + number)[0];
+      if (element) {
+        element.click();
+        just_fail; // LOL
+      }
+    });
+  }
 
   /* Navigation functions
    * The way of saving it doesn't seem so nice, but ehy! It's a hackathon :D
@@ -47,7 +98,7 @@ if (Meteor.isClient) {
       });
 
       // Ugliest thing ever!
-      for (var index=2; index<=10; index++)
+      for (var index=2; index<10; index++)
         Keys.insert({
           pageId: user.defaultPageId,
           keyNumber: index,
@@ -81,7 +132,7 @@ if (Meteor.isClient) {
       });
 
       // Ugliest thing ever!
-      for (var index=3; index<=10; index++)
+      for (var index=3; index<10; index++)
         Keys.insert({
           pageId: user.defaultPageId,
           keyNumber: index,
@@ -116,7 +167,7 @@ if (Meteor.isClient) {
       });
 
       // Ugliest thing ever!
-      for (var index=3; index<=10; index++)
+      for (var index=3; index<10; index++)
         Keys.insert({
           pageId: user.defaultPageId,
           keyNumber: index,
@@ -158,7 +209,7 @@ if (Meteor.isClient) {
       });
 
       // Ugliest thing ever!
-      for (var index=5; index<=10; index++)
+      for (var index=5; index<10; index++)
         Keys.insert({
           pageId: user.defaultPageId,
           keyNumber: index,
@@ -198,9 +249,9 @@ var createMockupData = function (defaultPageId) {
   }
 
   // Create the 10 possible keys (just for testing purposes)
-  for (var index=0; index<=10; index++) {
+  for (var index=0; index<10; index++) {
     switch(index) {
-      case 10:
+      case 9:
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,
@@ -208,7 +259,7 @@ var createMockupData = function (defaultPageId) {
           image: "images/carlosKey.jpg"
         })
         break;
-      case 9:
+      case 8:
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,
@@ -216,7 +267,7 @@ var createMockupData = function (defaultPageId) {
           image: "images/alexKey.jpg"
         })
         break;
-      case 8:
+      case 7:
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,
@@ -224,7 +275,7 @@ var createMockupData = function (defaultPageId) {
           image: "images/weather.png"
         })
         break;
-      case 7:
+      case 6:
         Keys.insert({
           pageId: defaultPageId,
           keyNumber: index,

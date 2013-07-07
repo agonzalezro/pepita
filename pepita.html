@@ -1,5 +1,6 @@
 <head>
   <title>P.E.P.I.T.A.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=.58, maximum-scale=.58">
 </head>
 
 <body>
@@ -8,10 +9,13 @@
 </body>
 
 <template name="keyboard">
-  <ul>
+<ul>
     {{# each keys }}
-    <li>
-      <a href="{{ command }}">  <!-- If not link deactivate -->
+    {{# if shouldBreak keyNumber }}
+    <span class="break"></span>
+    {{/if}}
+    <li id="li{{ keyNumber }}">
+    <a id="{{ keyNumber }}" href="{{ command }}">  <!-- If not link deactivate -->
         <span class="number {{ keyNumber }}">{{ keyNumber }}</span>
         {{# if image }}
           <img src="{{ image }}">

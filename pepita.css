@@ -13,14 +13,14 @@ ul {
 }
 
 li {
+  outline-offset: 5px;
   list-style-type: none;
   display: block;
   height: 220px;
   width: 220px;
   float: left;
-  background-color: #e73b7b;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  background: url('images/empty.png') center center no-repeat;
+  border: 2px solid transparent;
 }
 
 li img {
@@ -45,8 +45,27 @@ a {
   position: absolute;
   margin: auto;
   bottom: 0px;
+  right: 0px;
+  width: 45%;
 }
 
 .text {
   font-size: 40px;
+}
+
+.break {
+  display: block;
+  width: 100%;
+  clear: both;
+}
+
+
+#li0 {
+  width: 330px !important;
+  height: 110px !important;
+  background-image: url('images/empty0.png');
+}
+
+#li0 .number {
+  top: 20px;
 }
